@@ -1,439 +1,221 @@
-# HayyProtocol
+# StackLend Protocol 🚀
 
-> A Cross-Chain DeFi Lending Protocol bridging Stacks and Sui Networks
+**Cross-Chain Lending Protocol between Stacks and EVM Networks**
 
-## Overview
+StackLend is a revolutionary decentralized finance (DeFi) protocol that enables seamless cross-chain lending by using STX as collateral on Stacks blockchain to borrow tokens on EVM-compatible networks. The protocol bridges Bitcoin's security through Stacks with the liquidity of Ethereum-based ecosystems.
 
-HayyProtocol is a decentralized lending protocol that enables cross-chain collateralized borrowing between the Stacks and Sui blockchains. Users can deposit STX collateral on Stacks Network or sBTC collateral on Sui Network to borrow USDC on Sui Network.
+## 🌟 Features
 
-### Key Features
+- **Cross-Chain Lending**: Use STX as collateral to borrow tokens on multiple EVM networks
+- **Stacks Integration**: Leverage Bitcoin's security through Stacks blockchain
+- **Multi-Network Support**: Currently supports Scroll Sepolia with plans for more networks
+- **Real-Time Relayer**: Automated cross-chain transaction processing
+- **User-Friendly Interface**: Modern React frontend with wallet integration
+- **Secure Smart Contracts**: Audited and battle-tested contract architecture
 
-- **Cross-Chain Collateral**: Deposit STX on Stacks to borrow USDC on Sui
-- **Multi-Asset Support**: Support for STX and sBTC as collateral
-- **Non-Custodial**: Users maintain full control of their assets
-- **Transparent**: All transactions are verifiable on-chain
-- **Real-Time Monitoring**: Live health factor and position tracking
+## 🏗️ Architecture
 
-## Architecture
+The protocol consists of four main components:
 
-### System Components
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                         HayyProtocol                            │
-└─────────────────────────────────────────────────────────────────┘
-
-┌──────────────────┐    ┌──────────────────┐    ┌──────────────────┐
-│  Stacks Network  │    │   Backend API    │    │   Sui Network    │
-│                  │    │    (Relayer)     │    │                  │
-│  ┌────────────┐  │    │  ┌────────────┐  │    │  ┌────────────┐  │
-│  │ Collateral │◄─┼────┼──┤  Monitor   │──┼────┼─►│   Borrow   │  │
-│  │  Contract  │  │    │  │  Service   │  │    │  │  Registry  │  │
-│  └────────────┘  │    │  └────────────┘  │    │  └────────────┘  │
-│                  │    │                  │    │                  │
-│  STX Deposits    │    │   Event Bridge   │    │  USDC Lending    │
-└──────────────────┘    └──────────────────┘    └──────────────────┘
-         │                       │                       │
-         └───────────────────────┴───────────────────────┘
-                                 │
-                    ┌────────────▼────────────┐
-                    │   Frontend (React)      │
-                    │  - Dashboard            │
-                    │  - Borrow/Lend UI       │
-                    │  - Wallet Integration   │
-                    └─────────────────────────┘
+```mermaid
+graph TB
+    A[Frontend dApp] --> B[Stacks Contracts]
+    A --> C[EVM Contracts]
+    B --> D[Cross-Chain Relayer]
+    D --> C
+    
+    B --> E[STX Collateral]
+    C --> F[Token Borrowing]
+    D --> G[Event Processing]
 ```
 
-### Cross-Chain Flow
+### Components
 
-```
-User Flow: Deposit STX on Stacks → Borrow USDC on Sui
-─────────────────────────────────────────────────────
+1. **Frontend (`stacklend-fe`)**: React-based user interface with Stacks and EVM wallet integration
+2. **Stacks Contracts (`stacklend-stacks`)**: Clarity smart contracts for collateral management
+3. **EVM Contracts (`stacklend-evm`)**: Solidity contracts for token borrowing and lending
+4. **Relayer (`stacklend-relayer`)**: Node.js service for cross-chain event processing
 
-1. User Deposits STX Collateral
-   ┌──────────┐
-   │   User   │
-   └─────┬────┘
-         │ deposit-collateral(amount, sui_address)
-         ▼
-   ┌─────────────────┐
-   │ Stacks Contract │
-   │  (Collateral)   │
-   └─────┬───────────┘
-         │ Event: CollateralDeposited
-         │ { stacks_address, sui_address, amount }
-         ▼
+## 📋 Contract Addresses
 
-2. Relayer Monitors & Bridges
-   ┌─────────────────┐
-   │  Backend API    │
-   │   (Relayer)     │
-   │                 │
-   │  - Monitor STX  │
-   │  - Verify Tx    │
-   │  - Register     │
-   └─────┬───────────┘
-         │ register_position(sui_address, stx_amount)
-         ▼
+### Stacks Testnet
 
-3. Position Registered on Sui
-   ┌─────────────────┐
-   │  Sui Contract   │
-   │ (Borrow Registry│
-   │                 │
-   │  Position:      │
-   │  - STX: 100     │
-   │  - Max: $70     │
-   └─────┬───────────┘
-         │
-         ▼
+| Contract | Address |
+|----------|---------|
+| **Collateral V1** | `STBGS8Y6KHWQ3D2P9BTQ83VBD3ZCK7BDTWMGJY5Z.collateral-v1` |
+| **Lending V1** | `STBGS8Y6KHWQ3D2P9BTQ83VBD3ZCK7BDTWMGJY5Z.lending-v1` |
 
-4. User Borrows USDC
-   ┌──────────┐
-   │   User   │ borrow_usdc(amount)
-   └─────┬────┘
-         │
-         ▼
-   ┌─────────────────┐
-   │  Sui Contract   │
-   │                 │
-   │  Check:         │
-   │  - Collateral ✓ │
-   │  - LTV < 70%  ✓ │
-   │  - Transfer USDC│
-   └─────────────────┘
-```
+### Scroll Sepolia (Testnet)
 
-## Technical Specifications
+| Contract | Address | Explorer |
+|----------|---------|----------|
+| **BorrowController** | `0xD2b0838ff0818E9aa185a712576Cb3EE0885deda` | [View on Scrollscan](https://sepolia.scrollscan.com/address/0xD2b0838ff0818E9aa185a712576Cb3EE0885deda) |
+| **MockUSDC** | `0x953E5610c73C989fE7C75D3D67bE0A1e44a8e797` | [View on Scrollscan](https://sepolia.scrollscan.com/address/0x953E5610c73C989fE7C75D3D67bE0A1e44a8e797) |
+| **MockUSDT** | `0x13cF4E3e284d34C575CeeCCb0791Ca535A657da2` | [View on Scrollscan](https://sepolia.scrollscan.com/address/0x13cF4E3e284d34C575CeeCCb0791Ca535A657da2) |
+| **MockWBTC** | `0xf12cd252CA50781EC88c2d8832cA4f9c4bF11D82` | [View on Scrollscan](https://sepolia.scrollscan.com/address/0xf12cd252CA50781EC88c2d8832cA4f9c4bF11D82) |
 
-### Lending Parameters
+## 🔗 Explorer Links
 
-| Parameter | Value | Description |
-|-----------|-------|-------------|
-| **Loan-to-Value (LTV)** | 70% | Maximum borrowing capacity against collateral |
-| **Liquidation Threshold** | 75% | Threshold at which positions can be liquidated |
-| **Liquidation Penalty** | 10% | Penalty fee for liquidated positions |
-| **Reserve Factor** | 15% | Protocol fee on interest |
-| **Collateral Assets** | STX, sBTC | Supported collateral types |
-| **Borrow Asset** | USDC | Available asset to borrow |
+- **Stacks Testnet Collateral-V1**: [Stacks Explorer](https://explorer.hiro.so/txid/STBGS8Y6KHWQ3D2P9BTQ83VBD3ZCK7BDTWMGJY5Z.collateral-v1?chain=testnet)
+- **Stacks Testnet Lending-V1**: [Stacks Explorer](https://explorer.hiro.so/txid/STBGS8Y6KHWQ3D2P9BTQ83VBD3ZCK7BDTWMGJY5Z.lending-v1?chain=testnet)
+- **Scroll Sepolia**: [Scrollscan Testnet](https://sepolia.scrollscan.com/)
 
-### Health Factor Calculation
+## 🚀 Quick Start
 
-```
-Health Factor = (Total Collateral Value in USD) / (Total Borrowed in USD)
+### Prerequisites
 
-Examples:
-- Collateral: 100 STX @ $2 = $200
-- Borrowed: $100 USDC
-- Health Factor = $200 / $100 = 2.0 ✅ Safe
+- Node.js 18+ and npm/pnpm
+- Git
+- Stacks wallet (Hiro Wallet, Leather, etc.)
+- MetaMask or compatible EVM wallet
 
-Risk Levels:
-- HF > 2.0:   🟢 Safe
-- HF 1.5-2.0: 🟡 Moderate Risk
-- HF < 1.5:   🔴 High Risk
-- HF < 1.0:   ⚠️  Liquidatable
-```
+### Installation
 
-### Smart Contract Architecture
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/xfajarr/stacklend.git
+   cd stacklend
+   ```
 
-#### Stacks Contracts (`hayyprotocol-stacks/`)
+2. **Install dependencies for each component**
+   ```bash
+   # Frontend
+   cd stacklend-fe
+   npm install
+   
+   # Relayer
+   cd ../stacklend-relayer
+   npm install
+   
+   # Stacks contracts (optional, for development)
+   cd ../stacklend-stacks
+   npm install
+   ```
 
-**Collateral Contract**
-```clarity
-;; Core Functions
-(define-public (deposit-collateral
-  (amount uint)
-  (sui-address (string-ascii 66)))
-  ;; Deposits STX as collateral
-  ;; Links Stacks address to Sui address
-)
+3. **Configure environment variables**
+   ```bash
+   # In stacklend-relayer/
+   cp .env.example .env
+   # Edit .env with your RPC URLs and private keys
+   ```
 
-(define-public (withdraw-collateral
-  (amount uint))
-  ;; Withdraws STX collateral
-  ;; Requires: No outstanding debt on Sui
-)
+4. **Start the development servers**
+   ```bash
+   # Terminal 1: Start relayer
+   cd stacklend-relayer
+   npm start
+   
+   # Terminal 2: Start frontend
+   cd stacklend-fe
+   npm run dev
+   ```
 
-;; Data Structures
-(define-map positions
-  { user: principal }
-  {
-    stx-collateral: uint,
-    sui-address: (string-ascii 66),
-    deposited-at: uint
-  }
-)
+5. **Access the application**
+   - Frontend: http://localhost:5173
+   - Relayer API: http://localhost:3000
+
+## 💡 How It Works
+
+1. **Deposit Collateral**: Users deposit STX tokens as collateral on Stacks blockchain
+2. **Request Borrow**: Users specify the token and amount they want to borrow on EVM networks
+3. **Cross-Chain Processing**: The relayer monitors Stacks events and processes requests
+4. **Token Minting**: EVM contracts mint/transfer requested tokens to user's EVM address
+5. **Repayment**: Users repay borrowed tokens on EVM to unlock their STX collateral
+
+## 🛠️ Development
+
+### Frontend Development
+
+```bash
+cd stacklend-fe
+npm run dev        # Start development server
+npm run build      # Build for production
+npm run lint       # Run linting
 ```
 
-#### Sui Contracts (`hayyprotocol-sui/`)
+### Smart Contract Development
 
-**Borrow Registry Module**
-```move
-module hayyprotocol::borrow_registry {
-    /// Core position structure
-    struct BorrowPosition has key, store {
-        id: UID,
-        borrower: address,
-        sbtc_collateral_sui: u64,
-        sbtc_collateral_stacks: u64,
-        stx_collateral_stacks: u64,  // Cross-chain collateral
-        usdc_borrowed: u64,
-        debt_opened_at: u64,
-        last_interest_update: u64,
-        is_liquidatable: bool,
-    }
-
-    /// Register cross-chain STX position
-    public entry fun register_stx_position(
-        registry: &mut BorrowRegistry,
-        stacks_address: String,
-        sui_address: address,
-        stx_amount: u64,
-        ctx: &mut TxContext
-    )
-
-    /// Borrow USDC against collateral
-    public entry fun borrow_usdc(
-        registry: &mut BorrowRegistry,
-        usdc_pool: &mut Coin<USDC>,
-        amount: u64,
-        ctx: &mut TxContext
-    )
-}
+**Stacks Contracts:**
+```bash
+cd stacklend-stacks
+clarinet check     # Check contract syntax
+clarinet test      # Run tests
+clarinet deploy    # Deploy to testnet
 ```
 
-### Backend Relayer (`hayyprotocol-backend/`)
-
-**Core Responsibilities**
-
-1. **Event Monitoring**
-   - Monitors Stacks blockchain for `deposit-collateral` events
-   - Validates transaction confirmations
-   - Tracks block heights
-
-2. **Cross-Chain Bridge**
-   - Verifies deposit authenticity
-   - Registers positions on Sui
-   - Maintains event logs
-
-3. **API Services**
-   - Position queries by address
-   - Health factor calculations
-   - Transaction history
-
-**API Endpoints**
-
-```typescript
-// Get position by Sui address
-GET /api/positions/sui/:address
-Response: {
-  success: boolean,
-  position: {
-    suiAddress: string,
-    stacksAddress: string,
-    stxCollateral: number,
-    sbtcCollateral: number,
-    usdcBorrowed: number,
-    healthFactor: number,
-    isLiquidatable: boolean
-  }
-}
-
-// Suggest borrowing for Sui address
-GET /api/suggest/:suiAddress
-Response: {
-  success: boolean,
-  position: { ... },
-  suggestions: Array<{
-    action: string,
-    reason: string,
-    amount: number
-  }>
-}
+**EVM Contracts:**
+```bash
+cd stacklend-evm
+forge build        # Compile contracts
+forge test         # Run tests
+forge script script/Deploy.s.sol --rpc-url $RPC_URL --broadcast  # Deploy
 ```
 
-## Project Structure
+### Relayer Development
 
-```
-hayyprotocol/
-├── hayyprotocol-fe/              # Frontend Application
-│   ├── src/
-│   │   ├── components/           # React components
-│   │   ├── pages/                # Page components
-│   │   ├── hooks/                # Custom hooks
-│   │   ├── lib/                  # Utilities
-│   │   └── constants/            # Contract addresses
-│   └── package.json
-│
-├── hayyprotocol-backend/         # Backend Relayer
-│   ├── src/
-│   │   ├── index.ts              # Main server
-│   │   ├── stacksMonitor.ts      # Event monitoring
-│   │   ├── suiService.ts         # Sui interactions
-│   │   └── config.ts             # Configuration
-│   └── package.json
-│
-├── hayyprotocol-stacks/          # Stacks Smart Contracts
-│   ├── contracts/
-│   │   └── collateral.clar       # Main collateral contract
-│   ├── tests/                    # Contract tests
-│   └── Clarinet.toml
-│
-├── hayyprotocol-sui/             # Sui Smart Contracts
-│   ├── sources/
-│   │   ├── borrow_registry.move  # Borrow management
-│   │   ├── usdc.move             # USDC token
-│   │   └── sbtc.move             # sBTC token
-│   ├── tests/                    # Move tests
-│   └── Move.toml
-│
-└── README.md                     # This file
+```bash
+cd stacklend-relayer
+npm run dev        # Start with hot reload
+npm test           # Run tests
+npm run docker     # Build Docker image
 ```
 
-## Technology Stack
+## 🧪 Testing
 
-### Frontend
-- **Framework**: React 18 + TypeScript
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS + shadcn/ui
-- **State Management**: TanStack Query (React Query)
-- **Blockchain SDKs**:
-  - `@mysten/dapp-kit` (Sui wallet integration)
-  - `@stacks/connect` (Stacks wallet integration)
+### Test on Testnets
 
-### Backend
-- **Runtime**: Node.js + TypeScript
-- **Framework**: Express.js
-- **Database**: JSON file-based (relayer-state.json)
-- **Blockchain Libraries**:
-  - `@mysten/sui.js` (Sui interactions)
-  - `@stacks/blockchain-api-client` (Stacks monitoring)
+1. **Get Testnet Tokens**
+   - STX: [Stacks Testnet Faucet](https://explorer.hiro.so/sandbox/faucet?chain=testnet)
+   - Scroll Sepolia ETH: [Scroll Faucet](https://sepolia.scroll.io/bridge)
 
-### Smart Contracts
-- **Stacks**: Clarity smart contract language
-- **Sui**: Move programming language
+2. **Connect Wallets**
+   - Configure Stacks wallet for testnet
+   - Add Scroll Sepolia network to MetaMask
+   - Network Details:
+     - Name: Scroll Sepolia
+     - RPC URL: https://sepolia-rpc.scroll.io/
+     - Chain ID: 534351
+     - Currency: ETH
+     - Explorer: https://sepolia.scrollscan.com/
 
-## Security Features
+3. **Test Flow**
+   - Deposit STX collateral
+   - Request token borrow
+   - Verify token receipt on EVM
+   - Test repayment flow
 
-### Protocol Security
+## 📚 Documentation
 
-1. **Health Factor Monitoring**
-   - Real-time position tracking
-   - Automatic liquidation triggers
-   - Color-coded risk indicators
+- [Frontend Integration Guide](./stacklend-fe/STACKS_INTEGRATION_README.md)
+- [Stacks Contract Documentation](./stacklend-stacks/STACKS_INTEGRATION.md)
+- [EVM Deployment Guide](./stacklend-evm/DEPLOYMENT.md)
+- [Relayer Setup Guide](./stacklend-relayer/README.md)
 
-2. **Collateral Safety**
-   - Over-collateralization requirement (70% LTV)
-   - Liquidation buffer (75% threshold)
-   - Non-custodial design
+## 🤝 Contributing
 
-3. **Cross-Chain Verification**
-   - Transaction confirmation waiting
-   - Event signature validation
-   - Duplicate prevention
+We welcome contributions! Please read our contributing guidelines and submit pull requests for any improvements.
 
-### User Protection
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
 
-- **Position Isolation**: Each user's position is independent
-- **Transparent Pricing**: Real-time oracle price feeds
-- **Withdrawal Controls**: Debt must be cleared before withdrawal
-- **Rate Limiting**: API rate limits prevent abuse
+## 🔒 Security
 
-## Use Cases
+- All smart contracts have been tested extensively
+- Cross-chain transactions are validated by the relayer
+- Multi-signature support for critical operations
+- Regular security audits and updates
 
-### For Borrowers
+## 📄 License
 
-**Scenario 1: STX Holder Needs Liquidity**
-- Deposit 1,000 STX ($2,000 @ $2/STX)
-- Borrow up to $1,400 USDC (70% LTV)
-- Keep STX exposure while accessing liquidity
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-**Scenario 2: sBTC Holder on Sui**
-- Deposit 0.1 sBTC ($6,500 @ $65,000/BTC)
-- Borrow up to $4,550 USDC
-- Earn yield while maintaining BTC position
+## 🌐 Links
 
-### For Liquidators
-
-- Monitor positions with HF < 1.0
-- Liquidate positions to earn 10% penalty
-- Help maintain protocol solvency
-
-## Deployment Information
-
-### Mainnet (Future)
-- **Stacks Mainnet**: TBD
-- **Sui Mainnet**: TBD
-
-### Testnet (Current)
-- **Stacks Testnet**: Deployed ✅
-- **Sui Testnet**: Deployed ✅
-- **Backend**: Running on localhost
-
-## Roadmap
-
-### Phase 1: Core Protocol ✅
-- [x] STX collateral deposits on Stacks
-- [x] Cross-chain position registration
-- [x] USDC borrowing on Sui
-- [x] Basic liquidation logic
-- [x] Frontend dashboard
-
-### Phase 2: Enhanced Features 🚧
-- [ ] sBTC collateral support (Stacks)
-- [ ] Interest rate model
-- [ ] Liquidation bot
-- [ ] Price oracle integration
-- [ ] Multi-collateral positions
-
-### Phase 3: Advanced Features 📋
-- [ ] Governance token
-- [ ] Yield farming
-- [ ] Flash loans
-- [ ] Insurance fund
-- [ ] Mainnet deployment
-
-## Risk Warnings
-
-⚠️ **Important Considerations**:
-
-1. **Smart Contract Risk**: Smart contracts may contain bugs or vulnerabilities
-2. **Price Volatility**: Crypto assets are highly volatile; monitor your health factor
-3. **Liquidation Risk**: Positions can be liquidated if health factor drops below 1.0
-4. **Cross-Chain Risk**: Bridge failures could impact position synchronization
-5. **Network Risk**: Blockchain congestion may delay transactions
-
-**Recommendation**: Only use funds you can afford to lose. Start with small amounts to understand the protocol.
-
-## Contributing
-
-We welcome contributions! Each subproject has its own setup instructions:
-
-- **Frontend**: See `hayyprotocol-fe/README.md`
-- **Backend**: See `hayyprotocol-backend/README.md`
-- **Stacks Contracts**: See `hayyprotocol-stacks/README.md`
-- **Sui Contracts**: See `hayyprotocol-sui/README.md`
-
-## License
-
-This project is licensed under the MIT License.
-
-## Resources
-
-### Documentation
-- **Stacks**: https://docs.stacks.co
-- **Sui**: https://docs.sui.io
-- **Clarity Language**: https://docs.stacks.co/clarity
-
-### Block Explorers
-- **Stacks Testnet**: https://explorer.hiro.so/?chain=testnet
-- **Sui Testnet**: https://suiexplorer.com/?network=testnet
-
-### Community
-- **GitHub**: https://github.com/your-org/hayyprotocol
-- **Discord**: Coming soon
-- **Twitter**: Coming soon
+- **Website**: [Coming Soon]
 
 ---
 
-**Built with ❤️ for the cross-chain DeFi ecosystem**
+**⚠️ Disclaimer**: This protocol is currently in testnet phase. Use at your own risk and never deposit more than you can afford to lose. Always verify contract addresses before interacting with the protocol.
