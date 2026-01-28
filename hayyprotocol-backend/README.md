@@ -2,7 +2,7 @@
 
 Cross-chain relayer and API server for HayyProtocol protocol that bridges STX collateral between Stacks and Sui blockchains.
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Node.js 18+ or Bun
@@ -47,7 +47,7 @@ clarinet console
 npm run dev
 ```
 
-## 📋 What This Does
+## What This Does
 
 ### Relayer
 - **Monitors Stacks** blockchain for deposit/withdrawal events
@@ -75,7 +75,7 @@ GET  /api/suggest/:currentSuiAddress  # Suggest correct addresses
 POST /api/withdraw                    # Withdraw collateral (body: {suiAddress, amount})
 ```
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌──────────────────┐           ┌──────────────────┐
@@ -91,7 +91,7 @@ POST /api/withdraw                    # Withdraw collateral (body: {suiAddress, 
                      Frontend dApp
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 hayyprotocol-backend/
@@ -118,7 +118,7 @@ hayyprotocol-backend/
 └── docker-compose.yml     # Docker compose config
 ```
 
-## 🔄 How It Works
+## How It Works
 
 ### Deposit Flow
 ```
@@ -176,7 +176,7 @@ Edit `address-mapping.json` to map Stacks addresses to Sui addresses:
 }
 ```
 
-⚠️ **IMPORTANT:** Without address mappings, the relayer will fail to process deposits!
+**IMPORTANT:** Without address mappings, the relayer will fail to process deposits!
 
 ## 🐳 Docker Deployment
 
@@ -264,7 +264,7 @@ npm start
 bun src/index.ts
 ```
 
-## 🧪 Testing & Debugging
+## Testing & Debugging
 
 Debug scripts are located in the `debug/` folder:
 
@@ -282,7 +282,7 @@ node debug/lookup-by-stacks.js <STACKS_ADDRESS>
 node debug/test-sui-call.js
 ```
 
-## 🚨 Troubleshooting
+## Troubleshooting
 
 ### "No Sui address mapping found"
 **Fix:** Add the Stacks → Sui address mapping to `address-mapping.json`
@@ -348,7 +348,7 @@ docker-compose logs -f
 journalctl -u hayyprotocol-relayer -f
 ```
 
-## 🔐 Security
+## Security
 
 ### Critical Security Notes
 
@@ -366,7 +366,7 @@ journalctl -u hayyprotocol-relayer -f
    - Needs gas for transactions
    - Keep balance topped up but not excessive
 
-## 🚀 Production Deployment
+## Production Deployment
 
 ### Option 1: PM2 (Recommended)
 ```bash
@@ -411,7 +411,7 @@ See Docker Deployment section above.
 
 MIT
 
-## 🔗 Related Documentation
+## Related Documentation
 
 - [Main Project README](../README.md)
 - [Frontend Documentation](../hayyprotocol-fe/README.md)
