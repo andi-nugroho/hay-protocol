@@ -1,0 +1,25 @@
+---
+id: 0
+name: Testnet deployment
+network: testnet
+stacks-node: "https://api.testnet.hiro.so"
+bitcoin-node: "http://blockstack:blockstacksystem@bitcoind.testnet.stacks.co:18332"
+plan:
+  batches:
+    - id: 0
+      transactions:
+        - contract-publish:
+            contract-name: collateral-v1
+            expected-sender: STBGS8Y6KHWQ3D2P9BTQ83VBD3ZCK7BDTWMGJY5Z
+            cost: 93100
+            path: contracts/collateral-v1.clar
+            anchor-block-only: true
+            clarity-version: 1
+        - contract-publish:
+            contract-name: lending-v1
+            expected-sender: STBGS8Y6KHWQ3D2P9BTQ83VBD3ZCK7BDTWMGJY5Z
+            cost: 18510
+            path: contracts/lending-v1.clar
+            anchor-block-only: true
+            clarity-version: 1
+      epoch: "2.05"
