@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+dist/
+*.log
+
+# Environment files (never commit these!)
+.env
+.env.local
+.env.production
+
+# State and data files
+state.json
+data/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+logs/
+*.log

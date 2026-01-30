@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design system: Neubrutalism for StackLend
+   - Bold orange primary
+   - Black borders, subtle offset shadows
+   - Large, readable typography using Space Grotesk
+   - Rounded corners (1rem)
+   All colors are HSL and mapped to Tailwind tokens in tailwind.config.ts
+*/
+
+@layer base {
+  :root {
+    /* Surfaces */
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Brand (Orange) */
+    --primary: 24 95% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Supporting */
+    --secondary: 30 100% 96%;
+    --secondary-foreground: 24 95% 20%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 35%;
+
+    --accent: 24 95% 95%;
+    --accent-foreground: 24 95% 25%;
+
+    --destructive: 0 84% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Lines, Inputs, Focus */
+    --border: 0 0% 12%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 0 0% 12%;
+
+    /* Shape */
+    --radius: 1rem;
+
+    /* Sidebar (kept for components that use these tokens) */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 24 95% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 24 95% 20%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 24 95% 53%;
+
+    /* Shadows */
+    --shadow-brutal: 0 4px 0 0 hsl(var(--border));
+    --shadow-subtle: 0 8px 16px -8px hsl(var(--border) / 0.15);
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 6.5%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 6.5%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 24 95% 58%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 70%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 40.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 0 0% 90%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 24 95% 58%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 24 95% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 24 95% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html, body, * {
+    font-family: "Bricolage Grotesque", "Space Grotesk", ui-sans-serif, system-ui, sans-serif !important;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: "Bricolage Grotesque", "Space Grotesk", ui-sans-serif, system-ui, sans-serif !important;
+  }
+
+  /* Ensure Stacks Connect modal and other external components use our fonts */
+  #stacks-connect-root,
+  [data-stacks-connect],
+  .stacks-connect *,
+  [class*="stacks"],
+  [id*="stacks"],
+  /* RainbowKit modal styling */
+  [data-rk],
+  .iekbcc0,
+  ._1ckjpok2,
+  ._1vwt0cg0 {
+    font-family: "Bricolage Grotesque", "Space Grotesk", ui-sans-serif, system-ui, sans-serif !important;
+  }
+
+  /* Custom RainbowKit styling to match our theme */
+  [data-rk] {
+    --rk-colors-accentColor: hsl(24 95% 53%) !important;
+    --rk-colors-accentColorForeground: hsl(0 0% 100%) !important;
+    --rk-radii-actionButton: 0.5rem !important;
+    --rk-radii-connectButton: 0.5rem !important;
+    --rk-radii-menuButton: 0.5rem !important;
+    --rk-radii-modal: 1rem !important;
+  }
+}
+
+@layer components {
+  .card-brut {
+    @apply bg-card text-card-foreground border-2 border-border rounded-lg shadow-[var(--shadow-brutal)] transition-transform duration-200;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-150 hover:scale-105;
+  }
+
+  .story-link {
+    @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
+  }
+}

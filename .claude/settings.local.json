@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sui move build:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
