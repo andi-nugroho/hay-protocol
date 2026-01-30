@@ -2,7 +2,7 @@
 
 A cross-chain relayer service that bridges Stacks and EVM blockchains for the StackLend lending protocol.
 
-## 🏗️ Architecture
+## Architecture
 
 The relayer monitors Stacks blockchain events and executes corresponding transactions on EVM chains:
 
@@ -12,7 +12,7 @@ Stacks Events → Relayer → EVM Transactions
 STX Collateral          Token Minting/Burning
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -46,7 +46,7 @@ STACKS_API_URL=https://api.hiro.so
 COLLATERAL_CONTRACT_ID=YOUR_STACKS_CONTRACT_ID
 STACKS_CONFIRMATIONS=1
 
-# EVM Configuration  
+# EVM Configuration
 SCROLL_RPC_URL=https://sepolia-rpc.scroll.io/
 RELAYER_PRIVATE_KEY=0x...your-private-key
 BORROW_CONTROLLER=0x55fc7d4588b5d31e2d7e6b59079e00b0ed938821
@@ -92,7 +92,7 @@ curl http://localhost:8080/events
 curl -X POST http://localhost:8080/trigger-sync
 ```
 
-## 🔧 Management Scripts
+## Management Scripts
 
 ```bash
 # Check relayer health
@@ -105,7 +105,7 @@ npm run stats
 npm run trigger
 ```
 
-## 🛠️ How It Works
+## How It Works
 
 ### Event Processing Flow
 
@@ -136,7 +136,7 @@ The relayer processes events with this structure:
 - **Idempotency**: Prevents duplicate processing
 - **Height Tracking**: Remembers last processed block
 
-## 🔐 Security Features
+## Security Features
 
 - **Role-based Access**: Only authorized relayer can call contract
 - **Token Validation**: Checks if tokens are whitelisted
@@ -144,7 +144,7 @@ The relayer processes events with this structure:
 - **Gas Management**: Estimates gas with safety buffer
 - **Balance Checks**: Ensures sufficient relayer balance
 
-## 📈 Monitoring
+## Monitoring
 
 ### Health Indicators
 
@@ -160,7 +160,7 @@ The relayer provides structured logging:
 - Error: Failed transactions and system errors
 - Debug: Detailed event processing information
 
-## 🚨 Error Handling
+## Error Handling
 
 Common error scenarios and solutions:
 
@@ -188,7 +188,7 @@ Error: Missing EVM recipient address
 ```
 **Solution**: Ensure Stacks contract emits valid EVM addresses
 
-## 🔄 Cross-Chain Flow
+## Cross-Chain Flow
 
 ### Borrowing Process
 
@@ -209,7 +209,7 @@ Error: Missing EVM recipient address
 3. Tokens burned from user's balance
 4. Collateral available for withdrawal on Stacks
 
-## 🛡️ Production Considerations
+## Production Considerations
 
 ### Security
 - Use hardware wallet or secure key management
@@ -229,7 +229,7 @@ Error: Missing EVM recipient address
 - Use database instead of JSON for persistence
 - Add metrics and monitoring dashboards
 
-## 📝 Development
+## Development
 
 ### Adding New Tokens
 
@@ -249,6 +249,6 @@ npm run dev
 curl -X POST http://localhost:8080/trigger-sync
 ```
 
-## 📄 License
+## License
 
 MIT License - see LICENSE file for details.
