@@ -1,10 +1,10 @@
-# StackLend Protocol 
+# StackLend Protocol
 
 **Cross-Chain Lending Protocol between Stacks and EVM Networks**
 
 StackLend is a revolutionary decentralized finance (DeFi) protocol that enables seamless cross-chain lending by using STX as collateral on Stacks blockchain to borrow tokens on EVM-compatible networks. The protocol bridges Bitcoin's security through Stacks with the liquidity of Ethereum-based ecosystems.
 
-## 🌟 Features
+## Features
 
 - **Cross-Chain Lending**: Use STX as collateral to borrow tokens on multiple EVM networks
 - **Stacks Integration**: Leverage Bitcoin's security through Stacks blockchain
@@ -13,7 +13,7 @@ StackLend is a revolutionary decentralized finance (DeFi) protocol that enables 
 - **User-Friendly Interface**: Modern React frontend with wallet integration
 - **Secure Smart Contracts**: Audited and battle-tested contract architecture
 
-## 🏗️ Architecture
+## Architecture
 
 The protocol consists of four main components:
 
@@ -36,7 +36,7 @@ graph TB
 3. **EVM Contracts (`stacklend-evm`)**: Solidity contracts for token borrowing and lending
 4. **Relayer (`stacklend-relayer`)**: Node.js service for cross-chain event processing
 
-## 📋 Contract Addresses
+## Contract Addresses
 
 ### Stacks Testnet
 
@@ -54,13 +54,13 @@ graph TB
 | **MockUSDT** | `0x13cF4E3e284d34C575CeeCCb0791Ca535A657da2` | [View on Scrollscan](https://sepolia.scrollscan.com/address/0x13cF4E3e284d34C575CeeCCb0791Ca535A657da2) |
 | **MockWBTC** | `0xf12cd252CA50781EC88c2d8832cA4f9c4bF11D82` | [View on Scrollscan](https://sepolia.scrollscan.com/address/0xf12cd252CA50781EC88c2d8832cA4f9c4bF11D82) |
 
-## 🔗 Explorer Links
+## Explorer Links
 
 - **Stacks Testnet Collateral-V1**: [Stacks Explorer](https://explorer.hiro.so/txid/STBGS8Y6KHWQ3D2P9BTQ83VBD3ZCK7BDTWMGJY5Z.collateral-v1?chain=testnet)
 - **Stacks Testnet Lending-V1**: [Stacks Explorer](https://explorer.hiro.so/txid/STBGS8Y6KHWQ3D2P9BTQ83VBD3ZCK7BDTWMGJY5Z.lending-v1?chain=testnet)
 - **Scroll Sepolia**: [Scrollscan Testnet](https://sepolia.scrollscan.com/)
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -73,7 +73,7 @@ graph TB
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/xfajarr/stacklend.git
+   git clone https://github.com/andi-nugroho/stacklend.git
    cd stacklend
    ```
 
@@ -114,7 +114,7 @@ graph TB
    - Frontend: http://localhost:5173
    - Relayer API: http://localhost:3000
 
-## 💡 How It Works
+## How It Works
 
 1. **Deposit Collateral**: Users deposit STX tokens as collateral on Stacks blockchain
 2. **Request Borrow**: Users specify the token and amount they want to borrow on EVM networks
@@ -122,7 +122,7 @@ graph TB
 4. **Token Minting**: EVM contracts mint/transfer requested tokens to user's EVM address
 5. **Repayment**: Users repay borrowed tokens on EVM to unlock their STX collateral
 
-## 🛠️ Development
+## Development
 
 ### Frontend Development
 
@@ -160,7 +160,7 @@ npm test           # Run tests
 npm run docker     # Build Docker image
 ```
 
-## 🧪 Testing
+## Testing
 
 ### Test on Testnets
 
@@ -184,14 +184,14 @@ npm run docker     # Build Docker image
    - Verify token receipt on EVM
    - Test repayment flow
 
-## 📚 Documentation
+## Documentation
 
 - [Frontend Integration Guide](./stacklend-fe/STACKS_INTEGRATION_README.md)
 - [Stacks Contract Documentation](./stacklend-stacks/STACKS_INTEGRATION.md)
 - [EVM Deployment Guide](./stacklend-evm/DEPLOYMENT.md)
 - [Relayer Setup Guide](./stacklend-relayer/README.md)
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please read our contributing guidelines and submit pull requests for any improvements.
 
@@ -201,21 +201,21 @@ We welcome contributions! Please read our contributing guidelines and submit pul
 4. Add tests if applicable
 5. Submit a pull request
 
-## 🔒 Security
+## Security
 
 - All smart contracts have been tested extensively
 - Cross-chain transactions are validated by the relayer
 - Multi-signature support for critical operations
 - Regular security audits and updates
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🌐 Links
+## Links
 
 - **Website**: [Coming Soon]
 
 ---
 
-**⚠️ Disclaimer**: This protocol is currently in testnet phase. Use at your own risk and never deposit more than you can afford to lose. Always verify contract addresses before interacting with the protocol.
+**Disclaimer**: This protocol is currently in testnet phase. Use at your own risk and never deposit more than you can afford to lose. Always verify contract addresses before interacting with the protocol.
